@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <libc.h>
 #include <unistd.h>
+#include <limits.h>
 
 typedef struct s_list
 {
@@ -24,5 +25,6 @@ typedef struct s_list
 	pthread_t	thread;
 
 } t_list;
-int error_handling(int ac, char *av[]);
+int	error_handling(int ac, char *av[], int (*args)[5]);
+int	ft_atoi(char *str);
 #endif

@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "philo.h"
+
 int ft_isdigit(int c, int j)
 {
 	if (j == 0)
@@ -42,12 +44,24 @@ int ft_ispositive(int ac, char *av[])
 	return (0);
 }
 
-int error_handling(int ac, char *av[])
+int error_handling(int ac, char *av[], int (*args)[5])
 {
+	int	i;
+
+	i = 0;
 	if (ac != 5 && ac != 6)
 		return (1);
 	else if (ft_ispositive(ac, av) == 1)
 		return (1);
 	else
+	{
+		while (i < ac - 1)
+		{
+			(*args)[i] = ft_atoi(av[i + 1]);
+			i++;
+		}
+		if (ac == 5)
+			(*args)[4] = 0;
 		return (0);
+	}
 }

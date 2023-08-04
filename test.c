@@ -1,5 +1,4 @@
-/* ************************************************************************** *A/A%
-/*                                                                            */
+/* ************************************************************************** *//*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
@@ -30,8 +29,9 @@ int main(int ac, char *av[])
 	t_list *list;
 	pthread_t thread1;
 	pthread_t thread2;
+	int args[5];
 	int a = 1;
-	if (error_handling(ac, av) != 0)
+	if (error_handling(ac, av, &args) != 0)
 	{
 		write(1,"Error\n",6);
 		exit(1);
@@ -40,4 +40,6 @@ int main(int ac, char *av[])
 	pthread_create(&thread2, NULL, ststst_routine, &a);
 	pthread_join(thread1, NULL);
 	pthread_join(thread2, NULL);
+	for (int i = 0 ; i < 5; i++)
+		printf("args[%d] :%d\n", i, args[i]);
 }
