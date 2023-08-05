@@ -24,8 +24,7 @@ int ft_atoi(char *str)
 		if (number > (INT_MAX - str[i] + '0') / 10)
 		{
 			printf("number : %d\n", INT_MAX - str[i] + '0');
-			write(1, "Erro!\n", 6);
-			exit(1);
+			return (-1);
 		}
 		number = number*10 + str[i] - '0';
 		i++;

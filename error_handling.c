@@ -58,6 +58,8 @@ int error_handling(int ac, char *av[], int (*args)[5])
 		while (i < ac - 1)
 		{
 			(*args)[i] = ft_atoi(av[i + 1]);
+			if ((*args)[i] == -1)
+				return (1);
 			i++;
 		}
 		if (ac == 5)

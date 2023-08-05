@@ -23,6 +23,7 @@ typedef struct s_list
 {
 	unsigned int	philo;
 	pthread_t	thread;
+	int		*my_fork[2];
 
 } t_list;
 int	error_handling(int ac, char *av[], int (*args)[5]);
