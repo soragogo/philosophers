@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 11:01:06 by emukamada         #+#    #+#             */
-/*   Updated: 2023/09/28 18:53:45 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/09/28 19:54:02 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ typedef struct s_fork
 	bool is_available;
 } t_fork;
 
-typedef struct s_list
+typedef struct s_philo
 {
 	unsigned int name;
 	pthread_t thread;
 	unsigned int time_to_die;
 	t_fork *my_fork[2];
 
-} t_list;
+} t_philo;
 
 int error_handling(int ac, char *av[], int (*args)[5]);
 int ft_atoi(char *str);

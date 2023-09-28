@@ -1,4 +1,4 @@
-NAME = philosophers
+NAME = philo
 
 CC = cc
 
@@ -10,23 +10,18 @@ SRCS = main.c \
 	ft_atoi.c \
 	error_handling.c
 
-SRCFILES = $(addprefix $(SRCDIR)/, $(SRCS))
-
-OBJDIR = objs
-
-OBJS = $(addprefix $(OBJDIR)/, $(SRCS:.c=.o))
+OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
-	mkdir -p $(OBJDIR)
+%.o:%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(OBJDIR)
+	rm -rf $(OBJS)
 
 fclean: clean
 	rm -rf $(NAME)
