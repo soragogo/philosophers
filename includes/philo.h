@@ -18,14 +18,15 @@
 #include <libc.h>
 #include <unistd.h>
 #include <limits.h>
-
+#include <sys/time.h>
 typedef struct s_list
 {
-	unsigned int	philo;
+	unsigned int	name;
 	pthread_t	thread;
 	int		*my_fork[2];
+    int     longevity;
 
-} t_list;
+} t_philo;
 int	error_handling(int ac, char *av[], int (*args)[5]);
 int	ft_atoi(char *str);
 #endif

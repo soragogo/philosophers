@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:49:02 by ekamada           #+#    #+#             */
-/*   Updated: 2023/08/04 09:49:51 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/09/24 09:27:11 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int ft_ispositive(int ac, char *av[])
 
 int error_handling(int ac, char *av[], int (*args)[5])
 {
-	int	i;
+	int i;
 
 	i = 0;
 	if (ac != 5 && ac != 6)
