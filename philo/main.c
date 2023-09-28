@@ -29,37 +29,38 @@ t_fork *create_forks(int num_of_philos)
     while (i < num_of_philos)
     {
         forks[i].is_available = true;
+        pthread_mutex_init(&(forks[i].lock), NULL);
         i++;
     }
     return forks;
 }
 
-t_philo *create_threads(t_philo *list, int *args, t_fork *forks)
+t_philo *create_threads(t_philo *philos, int *args, t_fork *forks)
 {
     int i;
 
     i = 0;
-    list = calloc(args[0], sizeof(t_philo));
-    if (!list)
+    philos = calloc(args[0], sizeof(t_philo));
+    if (!philos)
         return (NULL);
     while (i < args[0])
     {
-        list[i].name = i;
-        pthread_create(&(list[i].thread), NULL, start_routine, &list[i]);
-        list[i].my_fork[0] = &forks[i];
+        philos[i].name = i;
+        pthread_create(&(philos[i].thread), NULL, start_routine, &philos[i]);
+        philos[i].my_fork[0] = &forks[i];
         if (i + 1 < args[0])
-            list[i].my_fork[1] = &forks[i + 1];
+            philos[i].my_fork[1] = &forks[i + 1];
         else
-            list[i].my_fork[1] = &forks[0];
-        pthread_join(list[i].thread, NULL);
+            philos[i].my_fork[1] = &forks[0];
+        pthread_join(philos[i].thread, NULL);
         i++;
     }
-    return list;
+    return philos;
 }
 
 int main(int ac, char *av[])
 {
-    t_philo *list = NULL;
+    t_philo *philos = NULL;
     int args[5];
     t_fork *forks;
     if (error_handling(ac, av, &args) != 0)
@@ -70,11 +71,11 @@ int main(int ac, char *av[])
     forks = create_forks(args[0]);
     if (!forks)
         return (1);
-    list = create_threads(list, args, forks);
+    philos = create_threads(philos, args, forks);
     for (int i = 0; i < 5; i++)
         printf("args[%d] :%d\n", i, args[i]);
 
     free(forks);
-    free(list);
+    free(philos);
     return 0;
 }
