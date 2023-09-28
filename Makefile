@@ -6,7 +6,7 @@ CFLAGS = -Wall -Wextra -Werror -Iincludes
 
 SRCDIR = srcs
 
-SRCS = test.c \
+SRCS = main.c \
 	ft_atoi.c \
 	error_handling.c
 
