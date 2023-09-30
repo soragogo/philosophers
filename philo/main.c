@@ -2,18 +2,20 @@
 
 void *start_routine(void *arg)
 {
-    t_philo *p = (t_philo *)arg;
-    struct timeval tv;
+    t_philo *philo = (t_philo *)arg;
+    unsigned long time;
+    bool is_alive = true;
 
-    usleep(300);
-    for (int i = 0; i < 1000; i++)
+    while (1)
     {
-
-        gettimeofday(&tv, NULL);
-        usleep(20);
-        // printf("%d\n", tv.tv_usec);
+        philo_actions(philo, &is_alive);
+        if (is_alive == false)
+        {
+            time = get_time();
+            printf("%lu %u died\n", time, philo->name);
+            break;
+        }
     }
-    printf("%d\n", p->time_to_die);
     return NULL;
 }
 
@@ -29,7 +31,6 @@ t_fork *create_forks(int num_of_philos)
     while (i < num_of_philos)
     {
         forks[i].is_available = true;
-        pthread_mutex_init(&(forks[i].lock), NULL);
         i++;
     }
     return forks;
@@ -52,10 +53,25 @@ t_philo *create_threads(t_philo *philos, int *args, t_fork *forks)
             philos[i].my_fork[1] = &forks[i + 1];
         else
             philos[i].my_fork[1] = &forks[0];
-        pthread_join(philos[i].thread, NULL);
+        philos[i].die_duration = args[1];
+        philos[i].eat_duration = args[2];
+        philos[i].sleep_duration = args[3];
+
         i++;
     }
     return philos;
+}
+
+unsigned long get_time()
+{
+    struct timeval tv;
+    unsigned long time;
+    time = 0.0;
+    gettimeofday(&tv, NULL);
+    time += (tv.tv_sec * 1000);
+    time += (tv.tv_usec / 1000);
+
+    return time;
 }
 
 int main(int ac, char *av[])
@@ -73,7 +89,10 @@ int main(int ac, char *av[])
         return (1);
     philos = create_threads(philos, args, forks);
     for (int i = 0; i < 5; i++)
+    {
         printf("args[%d] :%d\n", i, args[i]);
+        pthread_join(philos[i].thread, NULL);
+    }
 
     free(forks);
     free(philos);
