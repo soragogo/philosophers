@@ -45,6 +45,7 @@ bool is_fork_available(t_philo *philo, int right, int left)
 		{
 			pthread_mutex_unlock(&(philo->my_fork[right]->lock));
 			pthread_mutex_lock(&(philo->my_fork[left]->lock));
+			// printf("history: %d\n", philo->my_fork[left]->history);
 			if ((philo->my_fork[left]->history) != (philo->name))
 				if (philo->my_fork[left]->is_available == true)
 					result = true;
@@ -138,8 +139,18 @@ int action_think(t_philo *philo, int right, int left)
 	{
 		time = get_time();
 		if (time > philo->time_to_eat)
+		{
+			// puts("time > philo->time_to_eat");
 			if (is_fork_available(philo, right, left) == true)
+			{
 				break;
+			}
+			else
+			{
+				// puts("fork is not available");
+			}
+		}
+
 		if (time > philo->time_to_die)
 		{
 			printf("%lu %u died [3]\n", time, philo->name);
