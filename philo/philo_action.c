@@ -83,8 +83,12 @@ int action_eat(t_philo *philo)
 		}
 		if (time > philo->time_to_sleep)
 		{
+			pthread_mutex_lock(&(philo->my_fork[0]->lock));
+			pthread_mutex_lock(&(philo->my_fork[1]->lock));
 			philo->my_fork[0]->evenodd ^= 1;
 			philo->my_fork[1]->evenodd ^= 1;
+			pthread_mutex_unlock(&(philo->my_fork[0]->lock));
+			pthread_mutex_unlock(&(philo->my_fork[1]->lock));
 			return_forks(philo);
 			break;
 		}

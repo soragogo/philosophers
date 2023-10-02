@@ -3,7 +3,7 @@ NAME = philo
 CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -Iincludes
-# CFLAGS += -g -fsanitize=thread
+CFLAGS += -g -fsanitize=thread
 
 SRCDIR = srcs
 
