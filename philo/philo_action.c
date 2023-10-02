@@ -13,8 +13,8 @@ int take_forks(t_philo *philo, int right, int left)
 		{
 			time = get_time();
 			philo->my_fork[left]->is_available = false;
-			printf("%lu %d has taken a fork\n", time, philo->name);
-			printf("%lu %d has taken a fork\n", time, philo->name);
+			printf("%lu %d has taken a fork\n", time, philo->name + 1);
+			printf("%lu %d has taken a fork\n", time, philo->name + 1);
 			pthread_mutex_unlock(&(philo->my_fork[left]->lock));
 			return 0;
 		}
@@ -80,21 +80,22 @@ int action_eat(t_philo *philo, int right, int left)
 		time = get_time();
 		if (time > philo->time_to_die)
 		{
-			printf("%lu %u died [0]\n", time, philo->name);
+			printf("%lu %u died\n", time, philo->name);
 			return 1;
 		}
 	}
 	time = get_time();
 	philo->time_to_die = time + philo->die_duration;
 	philo->time_to_sleep = time + philo->eat_duration;
-	printf("%lu %d is eating\n", time, philo->name);
+	printf("%lu %d is eating\n", time, philo->name + 1);
+	usleep(philo->eat_duration * 950);
 	while (1)
 	{
 		time = get_time();
 		if (time > philo->time_to_die)
 		{
 			return_forks(philo, right, left);
-			printf("%lu %u died [1]\n", time, philo->name);
+			printf("%lu %u died\n", time, philo->name);
 			return 1;
 		}
 		if (time > philo->time_to_sleep)
@@ -114,7 +115,8 @@ int action_sleep(t_philo *philo)
 
 	time = get_time();
 	philo->time_to_think = time + philo->sleep_duration;
-	printf("%lu %d is sleeping\n", time, philo->name);
+	printf("%lu %d is sleeping\n", time, philo->name + 1);
+	usleep(philo->sleep_duration * 950);
 	while (1)
 	{
 		time = get_time();
@@ -122,7 +124,7 @@ int action_sleep(t_philo *philo)
 			break;
 		if (time > philo->time_to_die)
 		{
-			printf("%lu %u died [2]\n", time, philo->name);
+			printf("%lu %u died\n", time, philo->name);
 			return 1;
 		}
 	}
@@ -136,26 +138,17 @@ int action_think(t_philo *philo, int right, int left)
 	if (time > philo->time_to_eat)
 		if (is_fork_available(philo, right, left) == true)
 			return 0;
-	printf("%lu %d is thinking\n", time, philo->name);
+	printf("%lu %d is thinking\n", time, philo->name + 1);
 	while (1)
 	{
 		time = get_time();
 		if (time > philo->time_to_eat)
-		{
-			// puts("time > philo->time_to_eat");
 			if (is_fork_available(philo, right, left) == true)
-			{
 				break;
-			}
-			else
-			{
-				// puts("fork is not available");
-			}
-		}
 
 		if (time > philo->time_to_die)
 		{
-			printf("%lu %u died [3]\n", time, philo->name);
+			printf("%lu %u died\n", time, philo->name + 1);
 			return 1;
 		}
 	}
