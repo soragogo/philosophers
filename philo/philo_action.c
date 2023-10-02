@@ -43,6 +43,7 @@ bool is_fork_available(t_philo *philo, int right, int left)
 	{
 		if (philo->my_fork[right]->is_available == true)
 		{
+			philo->my_fork[right]->is_available = false;
 			pthread_mutex_unlock(&(philo->my_fork[right]->lock));
 			pthread_mutex_lock(&(philo->my_fork[left]->lock));
 			// printf("history: %d\n", philo->my_fork[left]->history);
