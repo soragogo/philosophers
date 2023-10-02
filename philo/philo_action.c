@@ -8,6 +8,7 @@ int take_forks(t_philo *philo, int right, int left)
 	{
 		philo->my_fork[right]->is_available = false;
 		pthread_mutex_unlock(&(philo->my_fork[right]->lock));
+		pthread_mutex_lock(&(philo->my_fork[left]->lock));
 		if ((philo->my_fork[left]->evenodd % 2) == (philo->name % 2))
 		{
 			time = get_time();
@@ -15,6 +16,7 @@ int take_forks(t_philo *philo, int right, int left)
 			printf("%lu %d has taken a fork\n", time, philo->name);
 			printf("%lu %d has taken a fork\n", time, philo->name);
 			pthread_mutex_unlock(&(philo->my_fork[left]->lock));
+			return 0;
 		}
 		else
 		{
@@ -23,7 +25,8 @@ int take_forks(t_philo *philo, int right, int left)
 			pthread_mutex_unlock(&(philo->my_fork[right]->lock));
 			return 1;
 		}
-		return 0;
+		pthread_mutex_unlock(&(philo->my_fork[left]->lock));
+		return 1;
 	}
 	return 1;
 }
@@ -34,15 +37,24 @@ bool is_fork_available(t_philo *philo, int right, int left)
 {
 	bool result;
 	result = false;
+
 	pthread_mutex_lock(&(philo->my_fork[right]->lock));
-	pthread_mutex_lock(&(philo->my_fork[left]->lock));
 	if ((philo->my_fork[right]->evenodd % 2) == (philo->name % 2))
-		if ((philo->my_fork[left]->evenodd % 2) == (philo->name % 2))
-			if (philo->my_fork[right]->is_available == true)
+	{
+		if (philo->my_fork[right]->is_available == true)
+		{
+			pthread_mutex_unlock(&(philo->my_fork[right]->lock));
+			pthread_mutex_lock(&(philo->my_fork[left]->lock));
+			if ((philo->my_fork[left]->evenodd % 2) == (philo->name % 2))
 				if (philo->my_fork[left]->is_available == true)
 					result = true;
-	pthread_mutex_unlock(&(philo->my_fork[right]->lock));
-	pthread_mutex_unlock(&(philo->my_fork[left]->lock));
+			pthread_mutex_unlock(&(philo->my_fork[left]->lock));
+		}
+		else
+			pthread_mutex_unlock(&(philo->my_fork[right]->lock));
+	}
+	else
+		pthread_mutex_unlock(&(philo->my_fork[right]->lock));
 	return result;
 }
 
@@ -50,6 +62,8 @@ void return_forks(t_philo *philo, int right, int left)
 {
 	pthread_mutex_lock(&(philo->my_fork[right]->lock));
 	pthread_mutex_lock(&(philo->my_fork[left]->lock));
+	philo->my_fork[right]->evenodd ^= 1;
+	philo->my_fork[left]->evenodd ^= 1;
 	philo->my_fork[right]->is_available = true;
 	philo->my_fork[left]->is_available = true;
 	pthread_mutex_unlock(&(philo->my_fork[right]->lock));
@@ -65,7 +79,7 @@ int action_eat(t_philo *philo, int right, int left)
 		time = get_time();
 		if (time > philo->time_to_die)
 		{
-			printf("%lu %u died\n", time, philo->name);
+			printf("%lu %u died [0]\n", time, philo->name);
 			return 1;
 		}
 	}
@@ -78,17 +92,12 @@ int action_eat(t_philo *philo, int right, int left)
 		time = get_time();
 		if (time > philo->time_to_die)
 		{
-			printf("%lu %u died\n", time, philo->name);
+			return_forks(philo, right, left);
+			printf("%lu %u died [1]\n", time, philo->name);
 			return 1;
 		}
 		if (time > philo->time_to_sleep)
 		{
-			pthread_mutex_lock(&(philo->my_fork[right]->lock));
-			pthread_mutex_lock(&(philo->my_fork[left]->lock));
-			philo->my_fork[right]->evenodd ^= 1;
-			philo->my_fork[left]->evenodd ^= 1;
-			pthread_mutex_unlock(&(philo->my_fork[right]->lock));
-			pthread_mutex_unlock(&(philo->my_fork[left]->lock));
 			return_forks(philo, right, left);
 			break;
 		}
@@ -110,7 +119,7 @@ int action_sleep(t_philo *philo)
 			break;
 		if (time > philo->time_to_die)
 		{
-			printf("%lu %u died\n", time, philo->name);
+			printf("%lu %u died [2]\n", time, philo->name);
 			return 1;
 		}
 	}
@@ -133,7 +142,7 @@ int action_think(t_philo *philo, int right, int left)
 				break;
 		if (time > philo->time_to_die)
 		{
-			printf("%lu %u died\n", time, philo->name);
+			printf("%lu %u died [3]\n", time, philo->name);
 			return 1;
 		}
 	}
@@ -163,8 +172,8 @@ void set_right_left(t_philo *philo, int *right, int *left)
 {
 	if (philo->name % 2 == 0)
 	{
-		*right = 0;
-		*left = 1;
+		*right = 1;
+		*left = 0;
 	}
 	else
 	{
