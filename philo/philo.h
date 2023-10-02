@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 11:01:06 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/02 23:37:42 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/03 00:43:26 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_philo
 	pthread_t thread;
 	t_fork *my_fork[2];
 	t_end *end_flag;
+	int meals_to_eat;
 	int die_duration;
 	int eat_duration;
 	int sleep_duration;

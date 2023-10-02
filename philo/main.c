@@ -39,6 +39,10 @@ t_philo *create_threads(t_philo *philos, int *args, t_fork *forks, t_end *end)
 	while (i < args[0])
 	{
 		philos[i].name = i;
+		if (sizeof(*args) / sizeof(args[0]) == 5)
+			philos[i].meals_to_eat = args[4];
+		else
+			philos[i].meals_to_eat = -1;
 		philos[i].end_flag = end;
 		philos[i].my_fork[0] = &forks[i];
 		if (i + 1 < args[0])
