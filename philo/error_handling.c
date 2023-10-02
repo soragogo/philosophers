@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
+/*   By: soma <soma@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:49:02 by ekamada           #+#    #+#             */
-/*   Updated: 2023/09/30 15:29:50 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/02 17:11:50 by soma             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+// 本家のisdigitは数字だったら１を返す。ここでは数字だったら０を返す。読みにくい
 
 int ft_isdigit(int c, int j)
 {
@@ -43,7 +45,7 @@ int ft_ispositive(int ac, char *av[])
 	}
 	return (0);
 }
-
+// なんのためのargsダブルポインタ？
 int error_handling(int ac, char *av[], int (*args)[5])
 {
 	int i;

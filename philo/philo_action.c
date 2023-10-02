@@ -4,6 +4,8 @@ void take_forks(t_philo *philo)
 {
 	unsigned long time;
 	pthread_mutex_lock(&(philo->my_fork[0]->lock));
+	//!=でよくない？
+	// mutex_lockしちゃってるからこれだと待ってても他の人がさわれないから書きかわらなくない？
 	while ((philo->my_fork[0]->evenodd % 2) ^ (philo->name % 2))
 		usleep(1);
 	time = get_time();

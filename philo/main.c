@@ -54,7 +54,7 @@ t_philo *create_threads(t_philo *philos, int *args, t_fork *forks, t_end *end)
 	while (i < args[0])
 	{
 		pthread_create(&(philos[i].thread), NULL, start_routine, &philos[i]);
-		pthread_detach(philos[i].thread);
+		// pthread_detach(philos[i].thread); detachするとメインがthreadの終了を待たない
 		i++;
 	}
 	return philos;
