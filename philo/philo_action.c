@@ -100,6 +100,8 @@ int action_eat(t_philo *philo, int right, int left)
 		if (time > philo->time_to_sleep)
 		{
 			return_forks(philo, right, left);
+			if (philo->meals_to_eat > 0)
+				philo->meals_to_eat--;
 			break;
 		}
 	}
@@ -218,6 +220,8 @@ int philo_actions(t_philo *philo)
 				death_certificate(philo);
 				return 0;
 			}
+		if (philo->meals_to_eat == 0)
+			return 0;
 		if (everyone_is_alive(philo) == true)
 			if (action_sleep(philo) == 1)
 			{

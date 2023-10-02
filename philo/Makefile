@@ -10,7 +10,8 @@ SRCDIR = srcs
 SRCS = main.c \
 	ft_atoi.c \
 	error_handling.c \
-	philo_action.c
+	philo_action.c \
+	ft_bzero.c
 
 OBJS = $(SRCS:.c=.o)
 

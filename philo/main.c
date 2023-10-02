@@ -39,7 +39,7 @@ t_philo *create_threads(t_philo *philos, int *args, t_fork *forks, t_end *end)
 	while (i < args[0])
 	{
 		philos[i].name = i;
-		if (sizeof(*args) / sizeof(args[0]) == 5)
+		if (args[4])
 			philos[i].meals_to_eat = args[4];
 		else
 			philos[i].meals_to_eat = -1;
@@ -84,6 +84,7 @@ int main(int ac, char *av[])
 	t_end end;
 	int i = 0;
 
+	ft_bzero(args, sizeof(args));
 	if (error_handling(ac, av, &args) != 0)
 	{
 		write(1, "Error\n", 6);

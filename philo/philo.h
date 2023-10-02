@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 11:01:06 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/03 00:43:26 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/03 01:04:19 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,5 @@ int error_handling(int ac, char *av[], int (*args)[5]);
 int ft_atoi(char *str);
 int philo_actions(t_philo *philo);
 unsigned long get_time();
+void *ft_bzero(void *b, int n);
 #endif
