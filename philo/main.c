@@ -98,5 +98,6 @@ int main(int ac, char *av[])
 	}
 	free(forks);
 	free(philos);
+
 	return 0;
 }

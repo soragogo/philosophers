@@ -31,7 +31,6 @@ int action_eat(t_philo *philo)
 	time = get_time();
 	philo->time_to_die = time + philo->die_duration;
 	philo->time_to_sleep = time + philo->eat_duration;
-	time = get_time();
 	printf("%lu %d is eating\n", time, philo->name);
 	while (1)
 	{
@@ -121,12 +120,7 @@ int philo_actions(t_philo *philo)
 	{
 		if (everyone_is_alive(philo) == false)
 			break;
-		if (everyone_is_alive(philo) == true)
-			if (action_think(philo) == 1)
-			{
-				death_certificate(philo);
-				return 0;
-			}
+
 		if (everyone_is_alive(philo) == true)
 			if (action_eat(philo) == 1)
 			{
@@ -135,6 +129,12 @@ int philo_actions(t_philo *philo)
 			}
 		if (everyone_is_alive(philo) == true)
 			if (action_sleep(philo) == 1)
+			{
+				death_certificate(philo);
+				return 0;
+			}
+		if (everyone_is_alive(philo) == true)
+			if (action_think(philo) == 1)
 			{
 				death_certificate(philo);
 				return 0;
