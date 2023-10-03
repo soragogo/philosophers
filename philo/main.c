@@ -40,7 +40,7 @@ t_philo *create_threads(t_philo *philos, int *args, t_fork *forks, t_end *end)
 	{
 		philos[i].name = i;
 		if (args[4])
-			philos[i].meals_to_eat = args[4];
+			philos[i].meals_to_eat = args[4] + 1;
 		else
 			philos[i].meals_to_eat = -1;
 		philos[i].end_flag = end;
@@ -94,7 +94,8 @@ int main(int ac, char *av[])
 	if (!forks)
 		return (1);
 	pthread_mutex_init(&(end.lock), NULL);
-	end.flag = 0;
+	end.death = 0;
+	end.eatenup = 0;
 	philos = create_threads(philos, args, forks, &end);
 	while (i < args[0])
 	{

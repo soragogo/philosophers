@@ -72,6 +72,13 @@ void return_forks(t_philo *philo, int right, int left)
 	pthread_mutex_unlock(&(philo->my_fork[left]->lock));
 }
 
+void set_eatenup_flag(t_philo *philo)
+{
+	pthread_mutex_lock(&(philo->end_flag->lock));
+	philo->end_flag->eatenup = 1;
+	pthread_mutex_unlock(&(philo->end_flag->lock));
+}
+
 int action_eat(t_philo *philo, int right, int left)
 {
 	unsigned long time;
@@ -102,8 +109,6 @@ int action_eat(t_philo *philo, int right, int left)
 		if (time > philo->time_to_sleep)
 		{
 			return_forks(philo, right, left);
-			if (philo->meals_to_eat > 0)
-				philo->meals_to_eat--;
 			break;
 		}
 	}
@@ -113,7 +118,12 @@ int action_eat(t_philo *philo, int right, int left)
 int action_sleep(t_philo *philo)
 {
 	unsigned long time;
-
+	if (philo->meals_to_eat > 0)
+	{
+		philo->meals_to_eat--;
+		if (philo->meals_to_eat == 0)
+			set_eatenup_flag(philo);
+	}
 	time = get_time();
 	philo->time_to_think = time + philo->sleep_duration;
 	printf("%lu %d is sleeping\n", time, philo->name + 1);
@@ -156,13 +166,13 @@ int action_think(t_philo *philo, int right, int left)
 	return 0;
 }
 
-bool everyone_is_alive(t_philo *philo)
+bool should_continue(t_philo *philo)
 {
 	bool result;
 
 	result = false;
 	pthread_mutex_lock(&(philo->end_flag->lock));
-	if (philo->end_flag->flag == 0)
+	if ((philo->end_flag->death == 0 && philo->end_flag->eatenup == 0) || (philo->meals_to_eat > 0))
 		result = true;
 	pthread_mutex_unlock(&(philo->end_flag->lock));
 	return (result);
@@ -171,7 +181,7 @@ bool everyone_is_alive(t_philo *philo)
 void death_certificate(t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->end_flag->lock));
-	philo->end_flag->flag = 1;
+	philo->end_flag->death = 1;
 	pthread_mutex_unlock(&(philo->end_flag->lock));
 }
 
@@ -200,24 +210,22 @@ int philo_actions(t_philo *philo)
 	philo->time_to_die = time + philo->die_duration;
 	while (1)
 	{
-		if (everyone_is_alive(philo) == false)
+		if (should_continue(philo) == false)
 			break;
-		if (everyone_is_alive(philo) == true)
+		if (should_continue(philo) == true)
 			if (action_think(philo, right, left) == 1)
 			{
 				death_certificate(philo);
 				return 0;
 			}
 
-		if (everyone_is_alive(philo) == true)
+		if (should_continue(philo) == true)
 			if (action_eat(philo, right, left) == 1)
 			{
 				death_certificate(philo);
 				return 0;
 			}
-		if (philo->meals_to_eat == 0)
-			return 0;
-		if (everyone_is_alive(philo) == true)
+		if (should_continue(philo) == true)
 			if (action_sleep(philo) == 1)
 			{
 				death_certificate(philo);
