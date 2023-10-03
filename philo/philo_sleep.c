@@ -20,7 +20,7 @@ int action_sleep(t_philo *philo)
 			break;
 		if (time > philo->time_to_die)
 		{
-			printf("%lu %u died\n", time, philo->name);
+
 			return 1;
 		}
 	}

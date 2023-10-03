@@ -78,7 +78,7 @@ int action_eat(t_philo *philo)
 		time = get_time();
 		if (time > philo->time_to_die)
 		{
-			printf("%lu %u died\n", time, philo->name);
+
 			return 1;
 		}
 	}
@@ -93,7 +93,7 @@ int action_eat(t_philo *philo)
 		if (time > philo->time_to_die)
 		{
 			return_forks(philo);
-			printf("%lu %u died\n", time, philo->name);
+
 			return 1;
 		}
 		if (time > philo->time_to_sleep)
