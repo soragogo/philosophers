@@ -36,24 +36,28 @@ bool is_fork_available(t_philo *philo)
 	result = false;
 
 	pthread_mutex_lock(&(philo->my_fork[0]->lock));
-	if ((philo->my_fork[0]->history) != (philo->name))
+	if (philo->my_fork[0]->history != philo->name && philo->my_fork[0]->is_available == true)
 	{
-		if (philo->my_fork[0]->is_available == true)
+		philo->my_fork[0]->is_available = false;
+		pthread_mutex_unlock(&(philo->my_fork[0]->lock));
+		pthread_mutex_lock(&(philo->my_fork[1]->lock));
+		// printf("history: %d\n", philo->my_fork[1]->history);
+		if (philo->my_fork[1]->history != philo->name && philo->my_fork[1]->is_available == true)
 		{
-			philo->my_fork[0]->is_available = false;
-			pthread_mutex_unlock(&(philo->my_fork[0]->lock));
-			pthread_mutex_lock(&(philo->my_fork[1]->lock));
-			// printf("history: %d\n", philo->my_fork[1]->history);
-			if ((philo->my_fork[1]->history) != (philo->name))
-				if (philo->my_fork[1]->is_available == true)
-					result = true;
-			pthread_mutex_unlock(&(philo->my_fork[1]->lock));
+			result = true;
+			philo->my_fork[1]->is_available = false;
 		}
 		else
+		{
+			pthread_mutex_lock(&(philo->my_fork[0]->lock));
+			philo->my_fork[0]->is_available = true;
 			pthread_mutex_unlock(&(philo->my_fork[0]->lock));
+		}
+		pthread_mutex_unlock(&(philo->my_fork[1]->lock));
 	}
 	else
 		pthread_mutex_unlock(&(philo->my_fork[0]->lock));
+
 	return result;
 }
 
@@ -93,12 +97,12 @@ int action_eat(t_philo *philo)
 		if (time > philo->time_to_die)
 		{
 			return_forks(philo);
-
 			return 1;
 		}
 		if (time > philo->time_to_sleep)
 		{
 			return_forks(philo);
+
 			break;
 		}
 	}
