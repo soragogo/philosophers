@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:29:42 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/03 19:43:05 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/03 19:49:02 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,6 @@ int	take_forks(t_philo *philo)
 
 bool	is_fork_available(t_philo *philo)
 {
-	bool	result;
-
-	result = false;
 	pthread_mutex_lock(&(philo->fork[0]->lock));
 	if (philo->fork[0]->prev != philo->name && philo->fork[0]->ready)
 	{
@@ -54,9 +51,9 @@ bool	is_fork_available(t_philo *philo)
 		pthread_mutex_lock(&(philo->fork[1]->lock));
 		if (philo->fork[1]->prev != philo->name && philo->fork[1]->ready)
 		{
-			result = true;
 			philo->fork[1]->ready = false;
 			pthread_mutex_unlock(&(philo->fork[1]->lock));
+			return (true);
 		}
 		else
 		{
@@ -65,11 +62,10 @@ bool	is_fork_available(t_philo *philo)
 			philo->fork[0]->ready = true;
 			pthread_mutex_unlock(&(philo->fork[0]->lock));
 		}
-
 	}
 	else
 		pthread_mutex_unlock(&(philo->fork[0]->lock));
-	return (result);
+	return (false);
 }
 
 void	return_forks(t_philo *philo)
