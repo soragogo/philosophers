@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:44:59 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/03 19:55:05 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/03 21:30:58 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	set_philos(t_philo *philos, int *args, t_fork *forks, t_end *end)
 	{
 		philos[i].name = i;
 		if (args[4])
-			philos[i].meals_to_eat = args[4] + 1;
+			philos[i].meals_to_eat = args[4];
 		else
 			philos[i].meals_to_eat = -1;
 		philos[i].end_flag = end;
