@@ -16,7 +16,6 @@ int philo_actions(t_philo *philo)
 				death_certificate(philo);
 				return 0;
 			}
-
 		if (should_continue(philo) == true)
 			if (action_eat(philo) == 1)
 			{
