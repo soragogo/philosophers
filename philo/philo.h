@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 11:01:06 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/03 09:11:51 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/03 09:53:30 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,14 @@ int ft_atoi(char *str);
 int philo_actions(t_philo *philo);
 unsigned long get_time();
 void *ft_bzero(void *b, int n);
+bool should_continue(t_philo *philo);
+void death_certificate(t_philo *philo);
+void set_eatenup_flag(t_philo *philo);
+int action_eat(t_philo *philo, int right, int left);
+int take_forks(t_philo *philo, int right, int left);
+bool is_fork_available(t_philo *philo, int right, int left);
+void return_forks(t_philo *philo, int right, int left);
+int action_sleep(t_philo *philo);
+int action_think(t_philo *philo);
+void *start_routine(void *arg)
 #endif
