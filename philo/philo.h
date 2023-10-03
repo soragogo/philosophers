@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 11:01:06 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/03 18:25:48 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/03 19:03:20 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 typedef struct s_fork
 {
 	pthread_mutex_t	lock;
-	bool			is_available;
-	int				history;
+	bool			ready;
+	int				prev;
 }	t_fork;
 
 typedef struct s_end
@@ -40,7 +40,7 @@ typedef struct s_philo
 {
 	int				name;
 	pthread_t		thread;
-	tforks			*my_fork[2];
+	t_fork			*fork[2];
 	t_end			*end_flag;
 	int				meals_to_eat;
 	int				die_duration;
@@ -67,7 +67,7 @@ void			return_forks(t_philo *philo);
 int				action_sleep(t_philo *philo);
 int				action_think(t_philo *philo);
 void			*start_routine(void *arg);
-t_forks			*create_forks(int num_of_philos);
+t_fork			*create_forks(int num_of_philos);
 t_philo			*create_threads(t_philo *philos,
 					int *args, t_fork *forks, t_end *end);
 #endif

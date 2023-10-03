@@ -6,46 +6,38 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:32:09 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/03 18:34:14 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/03 19:30:38 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+int	execute_action(int (*action)(t_philo*), t_philo *philo)
+{
+	if (should_continue(philo))
+	{
+		if (action(philo) == 1)
+		{
+			death_certificate(philo);
+			return (0);
+		}
+	}
+	return (1);
+}
+
 int	philo_actions(t_philo *philo)
 {
-	unsigned long	time;
-
-	time = get_time();
-	philo->time_to_die = time + philo->die_duration;
+	philo->time_to_die = get_time() + philo->die_duration;
 	while (1)
 	{
-		if (should_continue(philo) == false)
+		if (!should_continue(philo))
 			break ;
-		if (should_continue(philo) == true)
-		{
-			if (action_think(philo) == 1)
-			{
-				death_certificate(philo);
-				return (0);
-			}
-		}
-		if (should_continue(philo) == true)
-		{
-			if (action_eat(philo) == 1)
-			{
-				death_certificate(philo);
-				return (0);
-			}
-		}
-		if (should_continue(philo) == true)
-		{
-			if (action_sleep(philo) == 1)
-			{
-				death_certificate(philo);
-				return (0);
-			}
-		}
+		if (!execute_action(action_think, philo))
+			return (0);
+		if (!execute_action(action_eat, philo))
+			return (0);
+		if (!execute_action(action_sleep, philo))
+			return (0);
 	}
 	return (0);
 }

@@ -24,8 +24,8 @@ t_fork	*create_forks(int num_of_philos)
 	while (i < num_of_philos)
 	{
 		pthread_mutex_init(&(forks[i].lock), NULL);
-		forks[i].is_available = true;
-		forks[i].history = 1;
+		forks[i].ready = true;
+		forks[i].prev = 1;
 		i++;
 	}
 	return (forks);
