@@ -3,7 +3,10 @@ NAME = philo
 CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -Iincludes
-CFLAGS += -g -fsanitize=thread
+
+ifeq ($(MAKECMDGOALS), debug)
+	CFLAGS += -g -fsanitize=thread
+endif
 
 SRCDIR = srcs
 
@@ -31,4 +34,6 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+debug: re
+
+.PHONY: all clean fclean re debug
