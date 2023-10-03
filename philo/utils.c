@@ -14,7 +14,11 @@ bool should_continue(t_philo *philo)
 
 void death_certificate(t_philo *philo)
 {
+	unsigned long time;
 	pthread_mutex_lock(&(philo->end_flag->lock));
+	time = get_time();
+	if (philo->end_flag->death != 1)
+		printf("%lu %u died\n", time, philo->name + 1);
 	philo->end_flag->death = 1;
 	pthread_mutex_unlock(&(philo->end_flag->lock));
 }
