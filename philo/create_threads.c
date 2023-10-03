@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_threads.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/03 18:44:59 by emukamada         #+#    #+#             */
+/*   Updated: 2023/10/03 18:45:00 by emukamada        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
-t_philo *create_threads(t_philo *philos, int *args, t_fork *forks, t_end *end)
+t_philo	*create_threads(t_philo *philos, int *args, t_fork *forks, t_end *end)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	philos = calloc(args[0], sizeof(t_philo));
@@ -30,8 +42,7 @@ t_philo *create_threads(t_philo *philos, int *args, t_fork *forks, t_end *end)
 	while (i < args[0])
 	{
 		pthread_create(&(philos[i].thread), NULL, start_routine, &philos[i]);
-		// pthread_detach(philos[i].thread); detachするとメインがthreadの終了を待たない
 		i++;
 	}
-	return philos;
+	return (philos);
 }

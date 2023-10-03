@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_sleep.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/03 18:29:08 by emukamada         #+#    #+#             */
+/*   Updated: 2023/10/03 18:29:33 by emukamada        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
-int action_sleep(t_philo *philo)
+int	action_sleep(t_philo *philo)
 {
-	unsigned long time;
+	unsigned long	time;
+
 	if (philo->meals_to_eat > 0)
 	{
 		philo->meals_to_eat--;
@@ -17,12 +30,11 @@ int action_sleep(t_philo *philo)
 	{
 		time = get_time();
 		if (time > philo->time_to_think)
-			break;
+			break ;
 		if (time > philo->time_to_die)
 		{
-
-			return 1;
+			return (1);
 		}
 	}
-	return 0;
+	return (0);
 }

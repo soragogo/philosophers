@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soma <soma@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:49:02 by ekamada           #+#    #+#             */
-/*   Updated: 2023/10/02 17:11:50 by soma             ###   ########.fr       */
+/*   Updated: 2023/10/03 18:45:41 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// 本家のisdigitは数字だったら１を返す。ここでは数字だったら０を返す。読みにくい
-
-int ft_isdigit(int c, int j)
+int	ft_isdigit(int c, int j)
 {
 	if (j == 0)
 	{
@@ -25,10 +23,11 @@ int ft_isdigit(int c, int j)
 		return (0);
 	return (1);
 }
-int ft_ispositive(int ac, char *av[])
+
+int	ft_ispositive(int ac, char *av[])
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 1;
 	j = 0;
@@ -45,10 +44,10 @@ int ft_ispositive(int ac, char *av[])
 	}
 	return (0);
 }
-// なんのためのargsダブルポインタ？
-int error_handling(int ac, char *av[], int (*args)[5])
+
+int	error_handling(int ac, char *av[], int (*args)[5])
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (ac != 5 && ac != 6)

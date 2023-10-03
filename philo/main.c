@@ -1,17 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/03 18:34:27 by emukamada         #+#    #+#             */
+/*   Updated: 2023/10/03 18:36:06 by emukamada        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
-int main(int ac, char *av[])
+int	main(int ac, char *av[])
 {
-	t_philo *philos = NULL;
-	int args[5];
-	t_fork *forks;
-	t_end end;
-	int i = 0;
+	t_philo	*philos;
+	int		args[5];
+	t_forks	*forks;
+	t_end	end;
+	int		i;
 
+	i = 0;
+	philos = NULL;
 	ft_bzero(args, sizeof(args));
 	if (error_handling(ac, av, &args) != 0)
 	{
-		write(1, "Error\n", 6);
+		printf("Error\n");
 		return (1);
 	}
 	forks = create_forks(args[0]);
@@ -28,6 +42,5 @@ int main(int ac, char *av[])
 	}
 	free(forks);
 	free(philos);
-
-	return 0;
+	return (0);
 }
