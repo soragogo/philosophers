@@ -208,6 +208,7 @@ int philo_actions(t_philo *philo)
 				death_certificate(philo);
 				return 0;
 			}
+
 		if (everyone_is_alive(philo) == true)
 			if (action_eat(philo, right, left) == 1)
 			{
