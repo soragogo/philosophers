@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:49:02 by ekamada           #+#    #+#             */
-/*   Updated: 2023/10/03 18:45:41 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/03 20:05:27 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	ft_ispositive(int ac, char *av[])
 	j = 0;
 	while (i < ac)
 	{
+		if (ft_strncmp(av[i], "0", 2) == 0)
+				continue ;
 		while (av[i][j])
 		{
 			if (ft_isdigit(av[i][j], j) == 1)

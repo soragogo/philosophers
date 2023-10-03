@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 11:01:06 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/03 19:57:18 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/03 20:04:20 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,5 @@ void			*start_routine(void *arg);
 t_fork			*create_forks(int num_of_philos);
 t_philo			*create_threads(t_philo *philos,
 					int *args, t_fork *forks, t_end *end);
+int				ft_strncmp(const char *s1, const char *s2, size_t n);
 #endif

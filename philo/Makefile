@@ -16,6 +16,7 @@ SRCS = main.c \
 	philo_action.c \
 	ft_bzero.c \
 	ft_calloc.c \
+	ft_strncmp.c \
 	create_forks.c \
 	create_threads.c \
 	philo_eat.c \
