@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 11:01:06 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/03 09:53:30 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/03 12:26:04 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int take_forks(t_philo *philo, int right, int left);
 bool is_fork_available(t_philo *philo, int right, int left);
 void return_forks(t_philo *philo, int right, int left);
 int action_sleep(t_philo *philo);
-int action_think(t_philo *philo);
-void *start_routine(void *arg)
+int action_think(t_philo *philo, int right, int left);
+void *start_routine(void *arg);
+t_fork *create_forks(int num_of_philos);
+t_philo *create_threads(t_philo *philos, int *args, t_fork *forks, t_end *end);
 #endif

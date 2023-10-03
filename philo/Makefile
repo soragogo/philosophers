@@ -14,8 +14,13 @@ SRCS = main.c \
 	ft_atoi.c \
 	error_handling.c \
 	philo_action.c \
-	ft_bzero.c
-
+	ft_bzero.c \
+	create_forks.c \
+	create_threads.c \
+	philo_eat.c \
+	philo_sleep.c \
+	philo_think.c \
+	utils.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
