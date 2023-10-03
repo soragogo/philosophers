@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:34:27 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/03 19:18:20 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/03 20:01:03 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	main(int ac, char *av[])
 	end.death = 0;
 	end.eatenup = 0;
 	philos = create_threads(philos, args, forks, &end);
+	if (!philos)
+		return (1);
 	join_pthreads(philos, args[0]);
 	free(forks);
 	free(philos);
