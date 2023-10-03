@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:44:59 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/03 18:50:15 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/03 19:55:05 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_philo	*create_threads(t_philo *philos, int *args, t_fork *forks, t_end *end)
 	int	i;
 
 	i = 0;
-	philos = calloc(args[0], sizeof(t_philo));
+	philos = ft_calloc(args[0], sizeof(t_philo));
 	if (!philos)
 		return (NULL);
 	set_philos(philos, args, forks, end);
