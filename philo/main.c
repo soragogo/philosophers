@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:34:27 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/03 21:38:04 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/03 21:44:07 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int ac, char *av[])
 	t_end	end;
 
 	philos = NULL;
-	if (ft_strncmp(av[5], "0", 2) == 0)
+	if (av[5] && ft_strncmp(av[5], "0", 2) == 0)
 		return (0);
 	ft_bzero(args, sizeof(args));
 	if (error_handling(ac, av, &args) != 0)
