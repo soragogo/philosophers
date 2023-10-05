@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:34:27 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/03 21:44:07 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/04 17:42:37 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,3 +59,8 @@ int	main(int ac, char *av[])
 	join_and_free(philos, forks, args[0]);
 	return (0);
 }
+
+// __attribute__((destructor))
+// static void destructor() {
+//     system("leaks -q philo");
+// }
