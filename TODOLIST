@@ -1,0 +1,3 @@
+usleep(100)を入れることによって遅延を防ぐ
+mutex destroy入れる
+printfのmutexは・・・？これはディフェンスできそう
