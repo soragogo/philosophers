@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:26:13 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/03 21:30:30 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/12 12:27:58 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,23 @@ bool	should_continue(t_philo *philo)
 	bool	result;
 
 	result = false;
-	pthread_mutex_lock(&(philo->end_flag->lock));
 	if (philo->meals_to_eat == -1)
 	{
+		pthread_mutex_lock(&(philo->end_flag->lock));
 		if (philo->end_flag->death == 0)
 			result = true;
+		pthread_mutex_unlock(&(philo->end_flag->lock));
 	}
 	else
 	{
+		pthread_mutex_lock(&(philo->end_flag->lock));
 		if (philo->end_flag->death == 1)
 			result = false;
 		else if ((philo->end_flag->death == 0 && philo->end_flag->eatenup == 0)
 			|| (philo->meals_to_eat > 0))
 			result = true;
+		pthread_mutex_unlock(&(philo->end_flag->lock));
 	}
-	pthread_mutex_unlock(&(philo->end_flag->lock));
 	return (result);
 }
 

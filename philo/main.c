@@ -6,13 +6,13 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:34:27 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/04 17:42:37 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/12 12:21:34 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	join_and_free(t_philo *philos, t_fork *forks, int num)
+void	ending_operation(t_philo *philos, t_fork *forks, int num, t_end *end)
 {
 	int	i;
 
@@ -22,6 +22,13 @@ void	join_and_free(t_philo *philos, t_fork *forks, int num)
 		pthread_join(philos[i].thread, NULL);
 		i++;
 	}
+	i = 0;
+	while (i < num)
+	{
+		pthread_mutex_destroy(&(forks[i].lock));
+		i++;
+	}
+	pthread_mutex_destroy(&(end->lock));
 	free(forks);
 	free(philos);
 }
@@ -41,7 +48,7 @@ int	main(int ac, char *av[])
 	t_end	end;
 
 	philos = NULL;
-	if (av[5] && ft_strncmp(av[5], "0", 2) == 0)
+	if (ac == 6 && ft_strncmp(av[5], "0", 2) == 0)
 		return (0);
 	ft_bzero(args, sizeof(args));
 	if (error_handling(ac, av, &args) != 0)
@@ -56,7 +63,7 @@ int	main(int ac, char *av[])
 	philos = create_threads(philos, args, forks, &end);
 	if (!philos)
 		return (1);
-	join_and_free(philos, forks, args[0]);
+	ending_operation(philos, forks, args[0], &end);
 	return (0);
 }
 
