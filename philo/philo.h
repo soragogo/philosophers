@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 11:01:06 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/03 20:04:20 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/13 18:05:45 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,12 @@ typedef struct s_philo
 	unsigned long	time_to_eat;
 	unsigned long	time_to_sleep;
 	unsigned long	time_to_think;
+	pthread_mutex_t	*print_mutex;
 }	t_philo;
 
 void			*ft_bzero(void *b, int n);
 void			*ft_calloc(size_t count, size_t size);
+size_t			ft_strlen(const char *s);
 int				error_handling(int ac, char *av[], int (*args)[5]);
 int				ft_atoi(char *str);
 int				philo_actions(t_philo *philo);
@@ -69,7 +71,8 @@ int				action_sleep(t_philo *philo);
 int				action_think(t_philo *philo);
 void			*start_routine(void *arg);
 t_fork			*create_forks(int num_of_philos);
-t_philo			*create_threads(t_philo *philos,
+pthread_mutex_t	*create_threads(t_philo **philos,
 					int *args, t_fork *forks, t_end *end);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
+void			print_log(char *message, int name, t_philo *philo);
 #endif

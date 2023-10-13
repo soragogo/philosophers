@@ -6,13 +6,14 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:44:59 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/03 21:30:58 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/13 18:30:59 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	set_philos(t_philo *philos, int *args, t_fork *forks, t_end *end)
+void	set_philos_args(t_philo *philos,
+						int *args, t_fork *forks, t_end *end)
 {
 	int	i;
 
@@ -37,19 +38,42 @@ void	set_philos(t_philo *philos, int *args, t_fork *forks, t_end *end)
 	}
 }
 
-t_philo	*create_threads(t_philo *philos, int *args, t_fork *forks, t_end *end)
+pthread_mutex_t	*set_philos(t_philo *philos,
+						int *args, t_fork *forks, t_end *end)
 {
-	int	i;
+	int				i;
+	pthread_mutex_t	*print_mutex;
 
-	i = 0;
-	philos = ft_calloc(args[0], sizeof(t_philo));
-	if (!philos)
+	print_mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
+	if (!print_mutex)
 		return (NULL);
-	set_philos(philos, args, forks, end);
+	set_philos_args(philos, args, forks, end);
+	pthread_mutex_init(print_mutex, NULL);
+	i = 0;
 	while (i < args[0])
 	{
-		pthread_create(&(philos[i].thread), NULL, start_routine, &philos[i]);
+		philos[i].print_mutex = print_mutex;
 		i++;
 	}
-	return (philos);
+	return (print_mutex);
+}
+
+pthread_mutex_t	*create_threads(t_philo **philos,
+						int *args, t_fork *forks, t_end *end)
+{
+	int				i;
+	pthread_mutex_t	*print_mutex;
+
+	i = 0;
+	*philos = ft_calloc(args[0], sizeof(t_philo));
+	if (!*philos)
+		return (NULL);
+	print_mutex = set_philos(*philos, args, forks, end);
+	while (i < args[0])
+	{
+		pthread_create(&((*philos)[i].thread),
+			NULL, start_routine, &(*philos)[i]);
+		i++;
+	}
+	return (print_mutex);
 }

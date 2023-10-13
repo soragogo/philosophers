@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_think.c                                      :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/03 18:28:20 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/12 18:55:30 by emukamada        ###   ########.fr       */
+/*   Created: 2023/10/12 18:36:21 by emukamada         #+#    #+#             */
+/*   Updated: 2023/10/13 18:02:56 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	action_think(t_philo *philo)
+size_t	ft_strlen(const char *s)
 {
-	unsigned long	time;
-	bool			fork_ready;
+	size_t	i;
 
-	fork_ready = false;
-	print_log("is thinking", philo->name + 1, philo);
-	while (1)
-	{
-		if (!fork_ready && is_fork_available(philo))
-			fork_ready = true;
-		time = get_time();
-		if (time > philo->time_to_eat && fork_ready)
-			break ;
-		if (time > philo->time_to_die)
-			return (1);
-		usleep(200);
-	}
-	return (0);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }

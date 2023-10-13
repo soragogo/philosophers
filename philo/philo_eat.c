@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:29:42 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/12 14:29:52 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/13 18:05:23 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,14 @@ int	take_forks(t_philo *philo)
 {
 	if ((philo->fork[0]->prev) != (philo->name))
 	{
-		pthread_mutex_lock(&(philo->fork[0]->lock));
-		philo->fork[0]->ready = false;
-		pthread_mutex_unlock(&(philo->fork[0]->lock));
-		if ((philo->fork[1]->prev) != (philo->name) && should_continue(philo))
+		if (philo->fork[1]->prev != philo->name)
 		{
-			pthread_mutex_lock(&(philo->fork[1]->lock));
-			philo->fork[1]->ready = false;
-			pthread_mutex_unlock(&(philo->fork[1]->lock));
-			printf("%lu %d has taken a fork\n", get_time(), philo->name + 1);
-			printf("%lu %d has taken a fork\n", get_time(), philo->name + 1);
+			print_log("has taken a fork", philo->name + 1, philo);
+			print_log("has taken a fork", philo->name + 1, philo);
 			return (0);
 		}
 		else
-		{
-			pthread_mutex_lock(&(philo->fork[0]->lock));
-			philo->fork[0]->ready = true;
-			pthread_mutex_unlock(&(philo->fork[0]->lock));
-		}
+			return (1);
 	}
 	return (1);
 }
@@ -100,7 +90,7 @@ int	action_eat(t_philo *philo)
 	arrange_result = (eat_arrangement(philo));
 	if (arrange_result != 2)
 		return (arrange_result);
-	printf("%lu %d is eating\n", get_time(), philo->name + 1);
+	print_log("is eating", philo->name + 1, philo);
 	usleep(philo->eat_duration * 900);
 	while (1)
 	{
@@ -114,7 +104,7 @@ int	action_eat(t_philo *philo)
 			return_forks(philo);
 			break ;
 		}
-		usleep(100);
+		usleep(200);
 	}
 	return (0);
 }

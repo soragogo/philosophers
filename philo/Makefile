@@ -12,6 +12,7 @@ SRCDIR = srcs
 
 SRCS = main.c \
 	ft_atoi.c \
+	ft_strlen.c \
 	error_handling.c \
 	philo_action.c \
 	ft_bzero.c \
