@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 16:49:02 by ekamada           #+#    #+#             */
-/*   Updated: 2023/10/03 20:24:20 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/21 13:51:11 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_ispositive(int ac, char *av[])
 	return (0);
 }
 
-int	error_handling(int ac, char *av[], int (*args)[5])
+int	operate_cases(int ac, char *av[], int (*args)[5])
 {
 	int	i;
 
@@ -72,4 +72,15 @@ int	error_handling(int ac, char *av[], int (*args)[5])
 			(*args)[4] = 0;
 		return (0);
 	}
+}
+
+int	error_handling(int ac, char *av[], int (*args)[5])
+{
+	if (operate_cases(ac, av, args) != 0)
+	{
+		printf("Error\n");
+		return (1);
+	}
+	else
+		return (0);
 }

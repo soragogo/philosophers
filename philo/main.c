@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:34:27 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/13 18:06:03 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/21 13:51:09 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,7 @@ int	main(int ac, char *av[])
 		return (0);
 	ft_bzero(args, sizeof(args));
 	if (error_handling(ac, av, &args) != 0)
-	{
-		printf("Error\n");
 		return (1);
-	}
 	init_end_flag(&end);
 	forks = create_forks(args[0]);
 	if (!forks)
@@ -66,6 +63,7 @@ int	main(int ac, char *av[])
 		return (1);
 	ending_operation(philos, forks, args[0], &end);
 	pthread_mutex_destroy(print_mutex);
+	free(print_mutex);
 	return (0);
 }
 
