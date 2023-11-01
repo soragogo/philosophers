@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:26:13 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/13 18:06:37 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/29 11:47:45 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,17 @@ unsigned long	get_time(void)
 
 void	print_log(char *message, int name, t_philo *philo)
 {
+	static unsigned long	start_time;
+
+	if (start_time == 0)
+	{
+		start_time = get_time();
+		return ;
+	}
 	pthread_mutex_lock(philo->print_mutex);
 	if (ft_strlen(message) == 4)
-		printf("%lu %d %s\n", get_time(), name, message);
+		printf("%lu %d %s\n", get_time() - start_time, name, message);
 	else if (philo->end_flag->death == 0 && should_continue(philo) == true)
-		printf("%lu %d %s\n", get_time(), name, message);
+		printf("%lu %d %s\n", get_time() - start_time, name, message);
 	pthread_mutex_unlock(philo->print_mutex);
 }

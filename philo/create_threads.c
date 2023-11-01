@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:44:59 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/13 18:30:59 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/29 11:49:29 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ pthread_mutex_t	*create_threads(t_philo **philos,
 	if (!*philos)
 		return (NULL);
 	print_mutex = set_philos(*philos, args, forks, end);
+	print_log(NULL, 0, NULL);
 	while (i < args[0])
 	{
 		pthread_create(&((*philos)[i].thread),
