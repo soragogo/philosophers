@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:26:13 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/29 11:47:45 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/11/03 22:55:21 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,11 @@ void	death_certificate(t_philo *philo)
 	should_print_certificate = false;
 	pthread_mutex_lock(&(philo->end_flag->lock));
 	if (philo->end_flag->death != 1)
-	{
-		philo->end_flag->death = 1;
 		should_print_certificate = true;
-	}
+	philo->end_flag->death = 1;
+	pthread_mutex_unlock(&(philo->end_flag->lock));
 	if (should_print_certificate)
 		print_log("died", philo->name + 1, philo);
-	pthread_mutex_unlock(&(philo->end_flag->lock));
 }
 
 void	set_eatenup_flag(t_philo *philo)
@@ -80,10 +78,23 @@ void	print_log(char *message, int name, t_philo *philo)
 		start_time = get_time();
 		return ;
 	}
-	pthread_mutex_lock(philo->print_mutex);
 	if (ft_strlen(message) == 4)
+	{
+		pthread_mutex_lock(philo->print_mutex);
 		printf("%lu %d %s\n", get_time() - start_time, name, message);
-	else if (philo->end_flag->death == 0 && should_continue(philo) == true)
-		printf("%lu %d %s\n", get_time() - start_time, name, message);
-	pthread_mutex_unlock(philo->print_mutex);
+		pthread_mutex_unlock(philo->print_mutex);
+	}
+	else if (should_continue(philo) == true)
+	{
+		pthread_mutex_lock(&(philo->end_flag->lock));
+		if (philo->end_flag->death == 0)
+		{
+			pthread_mutex_unlock(&(philo->end_flag->lock));
+			pthread_mutex_lock(philo->print_mutex);
+			printf("%lu %d %s\n", get_time() - start_time, name, message);
+			pthread_mutex_unlock(philo->print_mutex);
+		}
+		else
+			pthread_mutex_unlock(&(philo->end_flag->lock));
+	}
 }

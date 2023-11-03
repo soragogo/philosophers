@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 11:01:06 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/13 18:05:45 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/11/03 20:56:30 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # include <limits.h>
 # include <sys/time.h>
 # include <stdbool.h>
+
+#define LEFT 0
+#define RIGHT 1
 
 typedef struct s_fork
 {
@@ -64,7 +67,7 @@ bool			should_continue(t_philo *philo);
 void			death_certificate(t_philo *philo);
 void			set_eatenup_flag(t_philo *philo);
 int				action_eat(t_philo *philo);
-int				take_forks(t_philo *philo);
+int				take_forks(t_philo *philo, int num_of_forks);
 bool			is_fork_available(t_philo *philo);
 void			return_forks(t_philo *philo);
 int				action_sleep(t_philo *philo);

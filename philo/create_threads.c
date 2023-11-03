@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:44:59 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/29 11:49:29 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/11/03 20:07:42 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void	set_philos_args(t_philo *philos,
 		else
 			philos[i].meals_to_eat = -1;
 		philos[i].end_flag = end;
-		philos[i].fork[0] = &forks[i];
+		philos[i].fork[LEFT] = &forks[i];
 		if (i + 1 < args[0])
-			philos[i].fork[1] = &forks[i + 1];
+			philos[i].fork[RIGHT] = &forks[i + 1];
 		else
-			philos[i].fork[1] = &forks[0];
+			philos[i].fork[RIGHT] = &forks[0];
 		philos[i].die_duration = args[1];
 		philos[i].eat_duration = args[2];
 		philos[i].sleep_duration = args[3];

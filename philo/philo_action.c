@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:32:09 by emukamada         #+#    #+#             */
-/*   Updated: 2023/10/12 14:37:01 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/11/03 22:23:56 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ int	philo_actions(t_philo *philo)
 		usleep(100);
 	while (1)
 	{
-		if (!should_continue(philo))
-			break ;
-		if (!execute_action(action_think, philo))
-			return (0);
 		if (!execute_action(action_eat, philo))
 			return (0);
 		if (!execute_action(action_sleep, philo))
 			return (0);
+		if (!execute_action(action_think, philo))
+			return (0);
+		if (!should_continue(philo))
+			break ;
 	}
 	return (0);
 }
