@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 11:01:06 by emukamada         #+#    #+#             */
-/*   Updated: 2023/11/03 20:56:30 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/11/04 11:29:14 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <sys/time.h>
 # include <stdbool.h>
 
-#define LEFT 0
-#define RIGHT 1
+# define LEFT 0
+# define RIGHT 1
 
 typedef struct s_fork
 {

@@ -6,13 +6,13 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:29:42 by emukamada         #+#    #+#             */
-/*   Updated: 2023/11/03 22:29:40 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/11/04 11:31:50 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int take_left_fork(t_philo *philo, t_fork **left_fork_address)
+int	take_left_fork(t_philo *philo, t_fork **left_fork_address)
 {
 	pthread_mutex_lock(&(philo->fork[LEFT]->lock));
 	*left_fork_address = philo->fork[LEFT];
@@ -27,7 +27,7 @@ int take_left_fork(t_philo *philo, t_fork **left_fork_address)
 	return (0);
 }
 
-int take_right_fork(t_philo *philo, t_fork **left_fork_address)
+int	take_right_fork(t_philo *philo, t_fork **left_fork_address)
 {
 	pthread_mutex_lock(&(philo->fork[RIGHT]->lock));
 	if (*left_fork_address == philo->fork[RIGHT])
@@ -36,7 +36,8 @@ int take_right_fork(t_philo *philo, t_fork **left_fork_address)
 		print_log("has taken a fork", philo->name + 1, philo);
 		return (1);
 	}
-	else if (philo->fork[RIGHT]->prev != philo->name && philo->fork[RIGHT]->ready)
+	else if (philo->fork[RIGHT]->prev != philo->name
+		&& philo->fork[RIGHT]->ready)
 	{
 		philo->fork[RIGHT]->ready = false;
 		pthread_mutex_unlock(&(philo->fork[RIGHT]->lock));
@@ -54,7 +55,7 @@ int take_right_fork(t_philo *philo, t_fork **left_fork_address)
 	}
 }
 
-int take_forks(t_philo *philo, int num_of_forks)
+int	take_forks(t_philo *philo, int num_of_forks)
 {
 	t_fork	*left_fork_address;
 	int		ret;
@@ -93,7 +94,6 @@ int	eat_arrangement(t_philo *philo)
 			return (0);
 		if (get_time() > philo->time_to_die)
 			return (1);
-		usleep(100);
 	}
 	philo->time_to_die = get_time() + philo->die_duration;
 	philo->time_to_sleep = get_time() + philo->eat_duration;
