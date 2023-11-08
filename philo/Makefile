@@ -21,8 +21,10 @@ SRCS = main.c \
 	create_forks.c \
 	create_threads.c \
 	philo_eat.c \
+	fork_controll.c \
 	philo_sleep.c \
 	philo_think.c \
+	print_log.c \
 	utils.c
 OBJS = $(SRCS:.c=.o)
 
