@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:32:09 by emukamada         #+#    #+#             */
-/*   Updated: 2023/11/07 22:03:30 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/11/09 13:30:33 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	philo_actions(t_philo *philo)
 {
 	philo->time_to_die = get_time() + philo->die_duration;
 	if (philo->name % 2 == 0)
-		usleep(300);
+		usleep(100);
 	while (1)
 	{
 		if (!execute_action(action_eat, philo))

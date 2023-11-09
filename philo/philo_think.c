@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:28:20 by emukamada         #+#    #+#             */
-/*   Updated: 2023/11/02 17:33:31 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/11/09 13:30:43 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	action_think(t_philo *philo)
 			break ;
 		if (time > philo->time_to_die)
 			return (1);
-		usleep(200);
+		usleep(100);
 	}
 	return (0);
 }
