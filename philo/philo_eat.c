@@ -6,12 +6,11 @@
 /*   By: ekamada <ekamada@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:29:42 by emukamada         #+#    #+#             */
-/*   Updated: 2023/11/04 12:13:22 by ekamada          ###   ########.fr       */
+/*   Updated: 2023/11/16 17:53:03 by ekamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
 
 int	eat_arrangement(t_philo *philo)
 {
@@ -43,7 +42,6 @@ int	action_eat(t_philo *philo)
 	if (arrange_result != 2)
 		return (arrange_result);
 	print_log("is eating", philo->name + 1, philo);
-	usleep(philo->eat_duration * 900);
 	while (1)
 	{
 		if (get_time() > philo->time_to_die)
@@ -56,7 +54,7 @@ int	action_eat(t_philo *philo)
 			return_forks(philo);
 			break ;
 		}
-		usleep(100);
+		usleep(200);
 	}
 	return (0);
 }
