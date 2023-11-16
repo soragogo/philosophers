@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 11:01:06 by emukamada         #+#    #+#             */
-/*   Updated: 2023/11/09 13:28:09 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/11/04 11:29:14 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_fork
 {
 	pthread_mutex_t	lock;
 	bool			ready;
+	int				prev;
 }	t_fork;
 
 typedef struct s_end

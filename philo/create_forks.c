@@ -6,7 +6,7 @@
 /*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:43:57 by emukamada         #+#    #+#             */
-/*   Updated: 2023/11/09 13:28:06 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/10/11 23:05:32 by emukamada        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_fork	*create_forks(int num_of_philos)
 	{
 		pthread_mutex_init(&(forks[i].lock), NULL);
 		forks[i].ready = true;
+		forks[i].prev = -1;
 		i++;
 	}
 	return (forks);
