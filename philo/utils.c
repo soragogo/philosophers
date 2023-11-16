@@ -3,59 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emukamada <emukamada@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ekamada <ekamada@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 18:26:13 by emukamada         #+#    #+#             */
-/*   Updated: 2023/11/03 22:55:21 by emukamada        ###   ########.fr       */
+/*   Updated: 2023/11/04 12:19:45 by ekamada          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-bool	should_continue(t_philo *philo)
-{
-	bool	result;
 
-	result = false;
-	if (philo->meals_to_eat == -1)
-	{
-		pthread_mutex_lock(&(philo->end_flag->lock));
-		if (philo->end_flag->death == 0)
-			result = true;
-		pthread_mutex_unlock(&(philo->end_flag->lock));
-	}
-	else
-	{
-		pthread_mutex_lock(&(philo->end_flag->lock));
-		if (philo->end_flag->death == 1)
-			result = false;
-		else if ((philo->end_flag->eatenup == 0 || philo->meals_to_eat > 0))
-			result = true;
-		pthread_mutex_unlock(&(philo->end_flag->lock));
-	}
-	return (result);
-}
 
-void	death_certificate(t_philo *philo)
-{
-	bool	should_print_certificate;
-
-	should_print_certificate = false;
-	pthread_mutex_lock(&(philo->end_flag->lock));
-	if (philo->end_flag->death != 1)
-		should_print_certificate = true;
-	philo->end_flag->death = 1;
-	pthread_mutex_unlock(&(philo->end_flag->lock));
-	if (should_print_certificate)
-		print_log("died", philo->name + 1, philo);
-}
-
-void	set_eatenup_flag(t_philo *philo)
-{
-	pthread_mutex_lock(&(philo->end_flag->lock));
-	philo->end_flag->eatenup = 1;
-	pthread_mutex_unlock(&(philo->end_flag->lock));
-}
 
 unsigned long	get_time(void)
 {
@@ -67,6 +25,14 @@ unsigned long	get_time(void)
 	time += (tv.tv_sec * 1000);
 	time += (tv.tv_usec / 1000);
 	return (time);
+}
+
+void	mutex_and_print(char *message, int name,
+	t_philo *philo, unsigned long start_time)
+{
+	pthread_mutex_lock(philo->print_mutex);
+	printf("%lu %d %s\n", get_time() - start_time, name, message);
+	pthread_mutex_unlock(philo->print_mutex);
 }
 
 void	print_log(char *message, int name, t_philo *philo)
