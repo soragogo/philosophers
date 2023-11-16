@@ -13,14 +13,12 @@ SRCDIR = srcs
 SRCS = main.c \
 	ft_atoi.c \
 	ft_strlen.c \
-	ft_calloc.c \
-	ft_bzero.c \
-	ft_strncmp.c \
-	flag_manager.c \
 	error_handling.c \
 	philo_action.c \
+	ft_bzero.c \
+	ft_calloc.c \
+	ft_strncmp.c \
 	create_forks.c \
-	fork_control.c \
 	create_threads.c \
 	philo_eat.c \
 	fork_controll.c \
